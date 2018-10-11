@@ -1,8 +1,4 @@
 <div class="main-container">
-  <mat-form-field class="search-box"> 
-    <input matInput placeholder="Search by last name" #searchBox>
-  </mat-form-field>
-
   <mat-progress-bar mode="indeterminate" *ngIf='isWorking'></mat-progress-bar>
   <table mat-table mat-table [dataSource]="dataSource" matSort matSortActive="lastName"
     matSortDisableClear matSortDirection="asc">

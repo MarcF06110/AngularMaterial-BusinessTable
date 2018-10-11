@@ -14,13 +14,11 @@ export class PersonsService {
   constructor(private httpClient: HttpClient) { }
 
   loadAll(
-    lastNameFilter?: string,
     pageIndex?: number,
     pageSize?: number,
     sortColumn?: string,
     sortDirection?: string): Observable<IPaginationResult<IPerson>> {
     const params = new HttpParams()
-      .set('lastNameFilter', lastNameFilter == null ? '' : lastNameFilter)
       .set('pageIndex', pageIndex == null ? '0' : pageIndex.toString())
       .set('pageSize', pageSize == null ? '10' : pageSize.toString())
       .set('sortColumn', sortColumn == null ? 'lastName' : sortColumn)

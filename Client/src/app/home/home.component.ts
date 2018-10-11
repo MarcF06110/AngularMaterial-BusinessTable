@@ -25,7 +25,6 @@ export class HomeComponent implements AfterViewInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  @ViewChild('searchBox') searchBox: ElementRef;
 
   constructor(
     private personsService: PersonsService,
@@ -37,23 +36,6 @@ export class HomeComponent implements AfterViewInit {
       .pipe(
         filter(v => v.added.length === 1),
         tap(v => this.editingPerson = Object.assign({}, v.added[0]))
-      ).subscribe();
-
-    // launch request when changing text in searchbox
-    fromEvent(this.searchBox.nativeElement, 'keyup')
-      .pipe(
-        debounceTime(100),
-        distinctUntilChanged(),
-        switchMap(() => {
-          this.paginator.pageIndex = 0;
-          this.isWorking = true;
-          return this.loadPersons();
-        }),
-        tap(data => {
-          this.isWorking = false;
-          this.resultLength = data.count;
-          this.dataSource.data = data.items;
-        })
       ).subscribe();
 
     // go back to first page when changing sort
@@ -103,7 +85,6 @@ export class HomeComponent implements AfterViewInit {
 
   private loadPersons() {
     return this.personsService.loadAll(
-      this.searchBox.nativeElement.value,
       this.paginator.pageIndex,
       this.paginator.pageSize,
       this.sort.active,
