@@ -9,9 +9,9 @@ namespace MatTableExample.Controllers
     {
         private readonly PersonsRepository _personsRepositoy = new PersonsRepository();
         // GET api/values
-        public PaginationResult<Person> Get(string lastNameFilter, int pageIndex, int pageSize, string sortColumn = "LastName", string sortDirection = "Asc")
+        public PaginationResult<Person> Get(int pageIndex, int pageSize, string sortColumn = "LastName", string sortDirection = "Asc")
         {
-            return _personsRepositoy.LoadPagedAll(lastNameFilter, pageIndex, pageSize, sortColumn, sortDirection);
+            return _personsRepositoy.LoadPagedAll(pageIndex, pageSize, sortColumn, sortDirection);
         }
 
         // POST api/values

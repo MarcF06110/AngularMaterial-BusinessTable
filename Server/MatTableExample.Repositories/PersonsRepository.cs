@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
 using Dapper;
@@ -13,16 +12,10 @@ namespace MatTableExample.Repositories
         public PersonsRepository(){}
         public PersonsRepository(string connectionString): base(connectionString) { }
 
-        public PaginationResult<Person> LoadPagedAll(string lastNameFilter, int pageIndex, int pageSize, string sortColumn = "LastName", string sortDirection = "Asc")
-        {
-            string filter = "";
-              if (!string.IsNullOrWhiteSpace(lastNameFilter))
-            {
-                lastNameFilter = $"%{lastNameFilter}%";
-                filter = "WHERE LastName LIKE @lastNameFilter";
-            }          
-            var sql = $"SELECT Count(*) FROM Persons {filter};" ;
-            sql += $"SELECT * FROM Persons {filter}";
+        public PaginationResult<Person> LoadPagedAll(int pageIndex, int pageSize, string sortColumn = "LastName", string sortDirection = "Asc")
+        {          
+            var sql = $"SELECT Count(*) FROM Persons;" ;
+            sql += $"SELECT * FROM Persons ";
 
 
             sql += GetPaginationQuery(pageIndex, pageSize, sortColumn, sortDirection);
@@ -30,7 +23,7 @@ namespace MatTableExample.Repositories
             using (var connection = new SqlConnection(ConnectionString))
             {
 
-                using (var multi = connection.QueryMultiple(sql, new {lastNameFilter}))
+                using (var multi = connection.QueryMultiple(sql))
                 {
                     var numbers = multi.Read<int>().First();
                     var persons = multi.Read<Person>();
