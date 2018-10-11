@@ -1,0 +1,35 @@
+.main-container {
+    padding: 20px;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 90%;
+  }
+
+  .mat-column-firstName{
+      width: 30%;
+  }
+
+  .mat-column-lastName{
+    width: 30%;
+}
+
+
+.mat-column-actions{
+    text-align: right;
+    width: 100px;
+}
+
+.mat-column-select {
+    width: 50px;
+}
+
+.mat-table {
+    width: 100%;
+}
+
+.search-box {
+    width: 30%;
+    min-width: 200px;
+}

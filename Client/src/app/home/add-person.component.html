@@ -1,0 +1,47 @@
+<form [formGroup]="form" (ngSubmit)='onSubmit()'>
+  <mat-accordion>
+    <mat-expansion-panel #panel>
+      <mat-expansion-panel-header>
+        <mat-panel-description>
+          Click to add a new person
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <mat-form-field>
+        <input matInput placeholder="First name" formControlName="firstName" [errorStateMatcher]='matcher'>
+        <mat-error *ngIf="form.get('firstName').hasError('required')">
+          First name is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput placeholder="Last name" formControlName="lastName" [errorStateMatcher]='matcher'>
+        <mat-error *ngIf="form.get('lastName').hasError('required')">
+          Last name is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <input matInput type="number" min="18" max="60" placeholder="Age" formControlName="age" [errorStateMatcher]='matcher'>
+        <mat-error *ngIf="form.get('age').hasError('required')">
+          Age is required
+        </mat-error>
+        <mat-error *ngIf="form.get('age').hasError('min')">
+            Age must be greater than 18 years 
+          </mat-error>
+          <mat-error *ngIf="form.get('age').hasError('max')">
+              Age must be lower than 60 years
+            </mat-error>
+      </mat-form-field>
+
+      <mat-action-row>
+        <button mat-icon-button type="submit">
+          <mat-icon>done</mat-icon>
+        </button>
+        <button mat-icon-button (click)='panel.close();'>
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-action-row>
+    </mat-expansion-panel>
+  </mat-accordion>
+</form>
